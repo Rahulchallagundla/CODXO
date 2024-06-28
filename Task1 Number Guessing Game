@@ -1,0 +1,61 @@
+import random
+
+def get_difficulty_level():
+    while True:
+        print("Select Difficulty Level:")
+        print("1. Easy (10 attempts)")
+        print("2. Medium (7 attempts)")
+        print("3. Hard (5 attempts)")
+
+        choice = input("Enter the number of your choice: ")
+        if choice == '1':
+            return 10
+        elif choice == '2':
+            return 7
+        elif choice == '3':
+            return 5
+        else:
+            print("Invalid choice, please select again.")
+
+def calculate_score(attempts, max_attempts):
+    return max(0, (max_attempts - attempts) * 10)
+
+def number_guessing_game():
+    # Generate a random number between 1 and 100
+    number_to_guess = random.randint(1, 100)
+    max_attempts = get_difficulty_level()
+    attempts = 0
+
+    low, high = 1, 100
+
+    print("Welcome to the Number Guessing Game with a twist!")
+    print(f"I have selected a number between 1 and 100. You have {max_attempts} attempts to guess it.")
+
+    while attempts < max_attempts:
+        print(f"Guess the number (it's between {low} and {high}):")
+
+        # Get the player's guess
+        try:
+            guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
+
+        attempts += 1
+
+        # Compare the guess to the number and provide feedback
+        if guess < number_to_guess:
+            print("Too low!")
+            low = max(low, guess + 1)
+        elif guess > number_to_guess:
+            print("Too high!")
+            high = min(high, guess - 1)
+        else:
+            score = calculate_score(attempts, max_attempts)
+            print(f"Congratulations! You've guessed the number in {attempts} attempts with a score of {score} points.")
+            break
+    else:
+        print(f"Sorry, you've used all {max_attempts} attempts. The number was {number_to_guess}.")
+
+if __name__ == "__main__":
+    number_guessing_game()
