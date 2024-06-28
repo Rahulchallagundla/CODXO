@@ -1,0 +1,25 @@
+import time
+from datetime import datetime
+
+def set_alarm():
+    alarm_time = input("Enter the time to set the alarm (HH:MM:SS): ")
+    alarm_hour, alarm_minute, alarm_second = map(int, alarm_time.split(":"))
+
+    print(f"Alarm is set for {alarm_time}")
+
+    while True:
+        now = datetime.now()
+        current_hour = now.hour
+        current_minute = now.minute
+        current_second = now.second
+
+        if (current_hour == alarm_hour and
+                current_minute == alarm_minute and
+                current_second == alarm_second):
+            print("Wake up! It's time!")
+            break
+
+        time.sleep(1)
+
+if __name__ == "__main__":
+    set_alarm()
