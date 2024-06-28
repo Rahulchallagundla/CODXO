@@ -1,0 +1,29 @@
+# Currency Converter using fixed rates
+
+def currency_converter(amount, from_currency, to_currency, conversion_rates):
+    if from_currency not in conversion_rates or to_currency not in conversion_rates:
+        raise ValueError("Invalid currency code")
+    # Convert amount to base currency (USD)
+    amount_in_usd = amount / conversion_rates[from_currency]
+    # Convert from USD to target currency
+    converted_amount = amount_in_usd * conversion_rates[to_currency]
+    return converted_amount
+
+# Fixed conversion rates for example purposes
+conversion_rates = {
+    "USD": 1.0,   # Base currency
+    "EUR": 0.85,
+    "JPY": 110.0,
+    "GBP": 0.75,
+    "INR": 73.5
+}
+
+amount = float(input("Enter amount: "))
+from_currency = input("From currency (USD, EUR, JPY, GBP, INR): ").upper()
+to_currency = input("To currency (USD, EUR, JPY, GBP, INR): ").upper()
+
+try:
+    result = currency_converter(amount, from_currency, to_currency, conversion_rates)
+    print(f"{amount} {from_currency} = {result:.2f} {to_currency}")
+except ValueError as e:
+    print(e)
